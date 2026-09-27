@@ -33,7 +33,7 @@ I identified three datasets that I think will best support our research.
 
 ### 1. Breast Cancer Wisconsin (Diagnostic)
 
-**Source:** UCI Machine Learning Repository
+**Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic)
 
 - 569 instances
 - 30 numerical features
@@ -49,7 +49,7 @@ It should also be useful when comparing Gini and entropy because we can examine 
 
 ### 2. Heart Disease
 
-**Source:** UCI Machine Learning Repository
+**Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/45/heart+disease)
 
 - 303 instances in the commonly used processed version
 - 13 features
@@ -66,7 +66,7 @@ One issue to document will be the presence of missing values and the preprocessi
 
 ### 3. Heart Failure Clinical Records
 
-**Source:** UCI Machine Learning Repository
+**Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/519/heart+failure+clinical+records)
 
 - 299 instances
 - 12 features
