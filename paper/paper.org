@@ -1,0 +1,42 @@
+#+TITLE: Gini vs. Entropy: Interpretability of Decision Trees on Medical Datasets
+#+AUTHOR: Skye Fitzpatrick, Mark James Drohan, Aaron McGuinness, Mikey Fennelly
+#+EXPORT_FILE_NAME: build/paper
+#+OPTIONS: toc:nil author:t date:nil num:t
+#+LATEX_CLASS: ieeeconf
+#+LATEX_CLASS_OPTIONS: [conference,10pt]
+#+bibliography: references.bib
+#+cite_export: bibtex IEEEtran
+
+# Scope: compare Gini and entropy decision trees on the three selected medical datasets.
+# Budget: at most three pages of main text and one separate page of references.
+# Use the IEEE class defaults; do not shrink fonts or change margins to fit.
+
+#+begin_abstract
+# Summarise the specific question, approach, main findings, and limitations.
+#+end_abstract
+
+* Introduction
+# State the research question and explain why interpretability matters here.
+
+* Background and Related Work
+# Explain the split criteria and position this comparison against prior work.
+# Cite with [cite:@raileanu2004gini] and [cite:@wang2016tsallis].
+# Include relevant course-assigned readings alongside the additional sources.
+
+* Methodology
+# Describe datasets, preprocessing, matched training settings, and metrics.
+
+* Results and Discussion
+# Report measured results and interpret structural complexity and stability.
+
+* Conclusion and Limitations
+# Answer the research question and acknowledge the limits of the experiment.
+
+# Flush both columns and any queued figures before starting references.
+#+LATEX: \clearpage
+#+LATEX: \phantomsection
+#+LATEX: \label{paper:references}
+# Draft only: include all collected sources to preview the bibliography budget.
+# Remove the next line when the text has citations; then only cited works appear.
+#+LATEX: \nocite{*}
+#+print_bibliography:

@@ -1,0 +1,13 @@
+/build/
+# Generated exports and LaTeX build files
+paper.tex
+paper.pdf
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+__pycache__/
