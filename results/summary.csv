@@ -1,0 +1,7 @@
+dataset,criterion,test_accuracy,depth,n_nodes,n_leaves
+breast_cancer_wisconsin,gini,0.9298245614035088,8,47,24
+breast_cancer_wisconsin,entropy,0.956140350877193,7,33,17
+heart_disease,gini,0.7377049180327869,9,95,48
+heart_disease,entropy,0.7377049180327869,10,97,49
+heart_failure,gini,0.7166666666666667,13,101,51
+heart_failure,entropy,0.6,14,99,50

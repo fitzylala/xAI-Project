@@ -1,4 +1,5 @@
-import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+from matplotlib.figure import Figure
 from sklearn.tree import DecisionTreeClassifier, export_text, plot_tree
 
 
@@ -40,26 +41,16 @@ def train_gini_tree(X_train, X_test, y_train, y_test, random_state=42):
     return tree, test_accuracy
 
 
-def print_tree(tree, feature_names=None, class_names=None, figsize=(20, 10)):
-    """
-    Print tree structure and basic stats, then display visual diagram.
-
-    Args:
-        tree: Fitted DecisionTreeClassifier
-        feature_names: Optional list of feature names for readability
-        class_names: Optional list of class names (e.g., ["negative", "positive"])
-        figsize: Tuple (width, height) for the figure size
-    """
-    print(f"\nTree Depth:  {tree.get_depth()}")
-    print(f"N Leaves:    {tree.get_n_leaves()}")
-    print(f"N Nodes:     {tree.tree_.node_count}")
-
-    print("\nTree Rules:")
-    rules = export_text(tree, feature_names=feature_names)
-    print(rules)
-
-    plt.figure(figsize=figsize)
-    plot_tree(tree, feature_names=feature_names, class_names=class_names,
-              filled=True, rounded=True, fontsize=9)
-    plt.tight_layout()
-    plt.show()
+def save_tree(tree, feature_names, out_dir, name, figsize=(20, 10)):
+    rules_dir = out_dir / "rules"
+    trees_dir = out_dir / "trees"
+    rules_dir.mkdir(parents=True, exist_ok=True)
+    trees_dir.mkdir(parents=True, exist_ok=True)
+    (rules_dir / f"{name}.txt").write_text(
+        export_text(tree, feature_names=feature_names)
+    )
+    fig = Figure(figsize=figsize)
+    FigureCanvasAgg(fig)
+    plot_tree(tree, feature_names=feature_names, filled=True, rounded=True,
+              fontsize=9, ax=fig.subplots())
+    fig.savefig(trees_dir / f"{name}.png", dpi=150, bbox_inches="tight")

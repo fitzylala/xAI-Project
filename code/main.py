@@ -3,78 +3,55 @@ Main orchestration script for XAI Gini vs. Entropy research.
 
 Flow:
   1. Load config (paths, random seed, dataset names)
-  2. Download datasets
+  2. Download datasets (cached in code/data/raw)
   3. Preprocess each dataset
   4. Train Gini and Entropy trees on each dataset
-  5. Save trained models
-  6. Print tree summaries (optional for inspection)
+  5. Save trained models, tree diagrams and tree rules
+  6. Write results/summary.csv
 
 TODO: After training, run analysis modules for interpretability metrics, see idea-proposal.md for potential analysis dimensions.
 """
 
-from config import RANDOM_STATE, DATASETS, OUTPUT_DIR
-from data.download import download_datasets # TODO
-from data.preprocess import preprocess_dataset # TODO
-from models.train import train_gini_tree, train_entropy_tree, print_tree
 import joblib
+import pandas as pd
 
+from config import DATASETS, OUTPUT_DIR, RANDOM_STATE
+from data.download import download_datasets
+from data.preprocess import preprocess_dataset
+from models.train import save_tree, train_entropy_tree, train_gini_tree
 
-def setup():
-    """Create output directory."""
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+TRAINERS = {"gini": train_gini_tree, "entropy": train_entropy_tree}
 
 
 def main():
-    setup()
     models_dir = OUTPUT_DIR / "models"
     models_dir.mkdir(parents=True, exist_ok=True)
-
-    print("Loading datasets...")
-    results = {}
+    rows = []
 
     for dataset_name in DATASETS:
-        print(f"  {dataset_name}")
-
-        print(f"    [1/5] Downloading...")
+        print(dataset_name)
         raw_data = download_datasets(dataset_name)
-        print(f"    [2/5] Preprocessing...")
         X_train, X_test, y_train, y_test, feature_names = preprocess_dataset(
             raw_data, dataset_name
         )
+        for criterion, train in TRAINERS.items():
+            tree, accuracy = train(X_train, X_test, y_train, y_test,
+                                   random_state=RANDOM_STATE)
+            name = f"{dataset_name}_{criterion}"
+            joblib.dump(tree, models_dir / f"{name}.pkl")
+            save_tree(tree, feature_names, OUTPUT_DIR, name)
+            rows.append({
+                "dataset": dataset_name,
+                "criterion": criterion,
+                "test_accuracy": accuracy,
+                "depth": tree.get_depth(),
+                "n_nodes": tree.tree_.node_count,
+                "n_leaves": tree.get_n_leaves(),
+            })
 
-        print(f"    [3/5] Training Gini...")
-        tree_gini, acc_gini = train_gini_tree(X_train, X_test, y_train, y_test,
-                                              random_state=RANDOM_STATE)
-        print(f"    [4/5] Training Entropy...")
-        tree_entropy, acc_entropy = train_entropy_tree(X_train, X_test, y_train, y_test,
-                                                       random_state=RANDOM_STATE)
-
-        print(f"    [5/5] Saving models...")
-        gini_path = models_dir / f"{dataset_name}_gini.pkl"
-        entropy_path = models_dir / f"{dataset_name}_entropy.pkl"
-        joblib.dump(tree_gini, gini_path)
-        joblib.dump(tree_entropy, entropy_path)
-
-        results[dataset_name] = {
-            "gini": {"model": tree_gini, "accuracy": acc_gini},
-            "entropy": {"model": tree_entropy, "accuracy": acc_entropy},
-            "feature_names": feature_names,
-        }
-
-        print(f"    Gini: {acc_gini:.4f} | Entropy: {acc_entropy:.4f}")
-
-    # Optional: inspect trees visually
-    print("\nGenerating tree visualizations...")
-    for dataset_name, data in results.items():
-        print(f"  {dataset_name}")
-        print(f"    Gini tree:")
-        print_tree(data["gini"]["model"], feature_names=data["feature_names"])
-
-        print(f"    Entropy tree:")
-        print_tree(data["entropy"]["model"], feature_names=data["feature_names"])
-
-    # TODO: Run analysis modules to compare interpretability metrics
-    print("Done!")
+    summary = pd.DataFrame(rows)
+    summary.to_csv(OUTPUT_DIR / "summary.csv", index=False)
+    print(summary.to_string(index=False))
 
 
 if __name__ == "__main__":

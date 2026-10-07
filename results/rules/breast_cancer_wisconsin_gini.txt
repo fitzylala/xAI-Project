@@ -1,0 +1,70 @@
+|--- perimeter3 <= 112.80
+|   |--- concave_points3 <= 0.16
+|   |   |--- area1 <= 696.25
+|   |   |   |--- smoothness3 <= 0.18
+|   |   |   |   |--- perimeter3 <= 102.40
+|   |   |   |   |   |--- area2 <= 47.03
+|   |   |   |   |   |   |--- texture3 <= 33.35
+|   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |--- texture3 >  33.35
+|   |   |   |   |   |   |   |--- texture1 <= 23.20
+|   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |   |--- texture1 >  23.20
+|   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- area2 >  47.03
+|   |   |   |   |   |   |--- concavity2 <= 0.02
+|   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |--- concavity2 >  0.02
+|   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- perimeter3 >  102.40
+|   |   |   |   |   |--- smoothness3 <= 0.14
+|   |   |   |   |   |   |--- perimeter3 <= 102.70
+|   |   |   |   |   |   |   |--- radius1 <= 13.83
+|   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |   |--- radius1 >  13.83
+|   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |--- perimeter3 >  102.70
+|   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- smoothness3 >  0.14
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |--- smoothness3 >  0.18
+|   |   |   |   |--- radius3 <= 11.70
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- radius3 >  11.70
+|   |   |   |   |   |--- class: 1
+|   |   |--- area1 >  696.25
+|   |   |   |--- texture3 <= 21.48
+|   |   |   |   |--- class: 0
+|   |   |   |--- texture3 >  21.48
+|   |   |   |   |--- class: 1
+|   |--- concave_points3 >  0.16
+|   |   |--- texture3 <= 24.78
+|   |   |   |--- compactness3 <= 0.42
+|   |   |   |   |--- class: 1
+|   |   |   |--- compactness3 >  0.42
+|   |   |   |   |--- class: 0
+|   |   |--- texture3 >  24.78
+|   |   |   |--- class: 1
+|--- perimeter3 >  112.80
+|   |--- texture1 <= 14.95
+|   |   |--- concave_points1 <= 0.09
+|   |   |   |--- class: 0
+|   |   |--- concave_points1 >  0.09
+|   |   |   |--- class: 1
+|   |--- texture1 >  14.95
+|   |   |--- area3 <= 810.10
+|   |   |   |--- concave_points3 <= 0.14
+|   |   |   |   |--- class: 0
+|   |   |   |--- concave_points3 >  0.14
+|   |   |   |   |--- class: 1
+|   |   |--- area3 >  810.10
+|   |   |   |--- smoothness3 <= 0.09
+|   |   |   |   |--- class: 0
+|   |   |   |--- smoothness3 >  0.09
+|   |   |   |   |--- concavity3 <= 0.19
+|   |   |   |   |   |--- radius3 <= 18.66
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- radius3 >  18.66
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- concavity3 >  0.19
+|   |   |   |   |   |--- class: 1
