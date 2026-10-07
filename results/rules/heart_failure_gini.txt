@@ -1,0 +1,136 @@
+|--- serum_creatinine <= 1.81
+|   |--- ejection_fraction <= 27.50
+|   |   |--- smoking <= 0.50
+|   |   |   |--- serum_creatinine <= 0.85
+|   |   |   |   |--- class: 0
+|   |   |   |--- serum_creatinine >  0.85
+|   |   |   |   |--- platelets <= 244500.00
+|   |   |   |   |   |--- serum_sodium <= 139.00
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- serum_sodium >  139.00
+|   |   |   |   |   |   |--- sex <= 0.50
+|   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |--- sex >  0.50
+|   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- platelets >  244500.00
+|   |   |   |   |   |--- creatinine_phosphokinase <= 981.00
+|   |   |   |   |   |   |--- serum_sodium <= 138.50
+|   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |--- serum_sodium >  138.50
+|   |   |   |   |   |   |   |--- platelets <= 300000.00
+|   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |   |--- platelets >  300000.00
+|   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- creatinine_phosphokinase >  981.00
+|   |   |   |   |   |   |--- class: 1
+|   |   |--- smoking >  0.50
+|   |   |   |--- serum_sodium <= 142.00
+|   |   |   |   |--- age <= 54.00
+|   |   |   |   |   |--- serum_creatinine <= 1.05
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- serum_creatinine >  1.05
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- age >  54.00
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- serum_sodium >  142.00
+|   |   |   |   |--- class: 0
+|   |--- ejection_fraction >  27.50
+|   |   |--- age <= 79.50
+|   |   |   |--- serum_creatinine <= 1.45
+|   |   |   |   |--- creatinine_phosphokinase <= 5913.50
+|   |   |   |   |   |--- platelets <= 197500.00
+|   |   |   |   |   |   |--- platelets <= 186500.00
+|   |   |   |   |   |   |   |--- age <= 52.50
+|   |   |   |   |   |   |   |   |--- ejection_fraction <= 32.50
+|   |   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |   |   |--- ejection_fraction >  32.50
+|   |   |   |   |   |   |   |   |   |--- smoking <= 0.50
+|   |   |   |   |   |   |   |   |   |   |--- age <= 49.50
+|   |   |   |   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |   |   |   |   |--- age >  49.50
+|   |   |   |   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |   |   |   |--- smoking >  0.50
+|   |   |   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |   |--- age >  52.50
+|   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |--- platelets >  186500.00
+|   |   |   |   |   |   |   |--- serum_creatinine <= 0.85
+|   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |   |--- serum_creatinine >  0.85
+|   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- platelets >  197500.00
+|   |   |   |   |   |   |--- platelets <= 275000.00
+|   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |--- platelets >  275000.00
+|   |   |   |   |   |   |   |--- platelets <= 276500.00
+|   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |   |--- platelets >  276500.00
+|   |   |   |   |   |   |   |   |--- serum_sodium <= 131.50
+|   |   |   |   |   |   |   |   |   |--- sex <= 0.50
+|   |   |   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |   |   |   |--- sex >  0.50
+|   |   |   |   |   |   |   |   |   |   |--- ejection_fraction <= 50.00
+|   |   |   |   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |   |   |   |   |--- ejection_fraction >  50.00
+|   |   |   |   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |   |   |--- serum_sodium >  131.50
+|   |   |   |   |   |   |   |   |   |--- age <= 66.50
+|   |   |   |   |   |   |   |   |   |   |--- serum_creatinine <= 0.65
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |   |   |   |   |--- serum_creatinine >  0.65
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 3
+|   |   |   |   |   |   |   |   |   |--- age >  66.50
+|   |   |   |   |   |   |   |   |   |   |--- serum_sodium <= 136.50
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |   |   |   |   |--- serum_sodium >  136.50
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |--- creatinine_phosphokinase >  5913.50
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- serum_creatinine >  1.45
+|   |   |   |   |--- platelets <= 349000.00
+|   |   |   |   |   |--- age <= 64.50
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- age >  64.50
+|   |   |   |   |   |   |--- serum_creatinine <= 1.65
+|   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |   |--- serum_creatinine >  1.65
+|   |   |   |   |   |   |   |--- creatinine_phosphokinase <= 372.00
+|   |   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |   |--- creatinine_phosphokinase >  372.00
+|   |   |   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- platelets >  349000.00
+|   |   |   |   |   |--- class: 1
+|   |   |--- age >  79.50
+|   |   |   |--- diabetes <= 0.50
+|   |   |   |   |--- creatinine_phosphokinase <= 5211.00
+|   |   |   |   |   |--- platelets <= 116500.00
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- platelets >  116500.00
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- creatinine_phosphokinase >  5211.00
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- diabetes >  0.50
+|   |   |   |   |--- class: 1
+|--- serum_creatinine >  1.81
+|   |--- serum_creatinine <= 2.05
+|   |   |--- class: 1
+|   |--- serum_creatinine >  2.05
+|   |   |--- serum_sodium <= 134.50
+|   |   |   |--- creatinine_phosphokinase <= 614.00
+|   |   |   |   |--- creatinine_phosphokinase <= 58.00
+|   |   |   |   |   |--- serum_creatinine <= 4.00
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- serum_creatinine >  4.00
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- creatinine_phosphokinase >  58.00
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- creatinine_phosphokinase >  614.00
+|   |   |   |   |--- class: 0
+|   |   |--- serum_sodium >  134.50
+|   |   |   |--- sex <= 0.50
+|   |   |   |   |--- creatinine_phosphokinase <= 143.00
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- creatinine_phosphokinase >  143.00
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- sex >  0.50
+|   |   |   |   |--- class: 0

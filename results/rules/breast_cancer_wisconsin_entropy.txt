@@ -1,0 +1,49 @@
+|--- perimeter3 <= 114.45
+|   |--- concave_points3 <= 0.11
+|   |   |--- area2 <= 45.17
+|   |   |   |--- texture3 <= 33.35
+|   |   |   |   |--- class: 0
+|   |   |   |--- texture3 >  33.35
+|   |   |   |   |--- texture1 <= 23.20
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- texture1 >  23.20
+|   |   |   |   |   |--- class: 0
+|   |   |--- area2 >  45.17
+|   |   |   |--- compactness2 <= 0.01
+|   |   |   |   |--- class: 1
+|   |   |   |--- compactness2 >  0.01
+|   |   |   |   |--- class: 0
+|   |--- concave_points3 >  0.11
+|   |   |--- texture3 <= 25.73
+|   |   |   |--- area2 <= 33.40
+|   |   |   |   |--- class: 0
+|   |   |   |--- area2 >  33.40
+|   |   |   |   |--- area3 <= 814.80
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- area3 >  814.80
+|   |   |   |   |   |--- class: 1
+|   |   |--- texture3 >  25.73
+|   |   |   |--- concave_points1 <= 0.05
+|   |   |   |   |--- radius3 <= 15.40
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- radius3 >  15.40
+|   |   |   |   |   |--- fractal_dimension2 <= 0.00
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- fractal_dimension2 >  0.00
+|   |   |   |   |   |   |--- smoothness2 <= 0.01
+|   |   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |   |--- smoothness2 >  0.01
+|   |   |   |   |   |   |   |--- class: 1
+|   |   |   |--- concave_points1 >  0.05
+|   |   |   |   |--- class: 1
+|--- perimeter3 >  114.45
+|   |--- concave_points1 <= 0.05
+|   |   |--- texture3 <= 28.97
+|   |   |   |--- texture2 <= 0.60
+|   |   |   |   |--- class: 1
+|   |   |   |--- texture2 >  0.60
+|   |   |   |   |--- class: 0
+|   |   |--- texture3 >  28.97
+|   |   |   |--- class: 1
+|   |--- concave_points1 >  0.05
+|   |   |--- class: 1
