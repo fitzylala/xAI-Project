@@ -12,10 +12,10 @@ Flow:
 TODO: After training, run analysis modules for interpretability metrics, see idea-proposal.md for potential analysis dimensions.
 """
 
-from config import RANDOM_STATE, DATASETS, OUTPUT_DIR
-from data.download import download_datasets # TODO
-from data.preprocess import preprocess_dataset # TODO
-from models.train import train_gini_tree, train_entropy_tree, print_tree
+from config import RANDOM_STATE, TEST_SIZE, STRATIFY, DATASETS, OUTPUT_DIR
+from data.download import download_datasets
+from data.preprocess import preprocess_dataset
+from models.train import split_data, train_gini_tree, train_entropy_tree, print_tree
 import joblib
 
 
@@ -38,8 +38,10 @@ def main():
         print(f"    [1/5] Downloading...")
         raw_data = download_datasets(uci_id)
         print(f"    [2/5] Preprocessing...")
-        X_train, X_test, y_train, y_test, feature_names = preprocess_dataset(
-            raw_data, dataset_name
+        X, y = preprocess_dataset(raw_data, dataset_name)
+        feature_names = list(X.columns)
+        X_train, X_test, y_train, y_test = split_data(
+            X, y, test_size=TEST_SIZE, stratify=STRATIFY, random_state=RANDOM_STATE
         )
 
         print(f"    [3/5] Training Gini...")
