@@ -32,11 +32,11 @@ def main():
     print("Loading datasets...")
     results = {}
 
-    for dataset_name in DATASETS:
+    for dataset_name, uci_id in DATASETS.items():
         print(f"  {dataset_name}")
 
         print(f"    [1/5] Downloading...")
-        raw_data = download_datasets(dataset_name)
+        raw_data = download_datasets(uci_id)
         print(f"    [2/5] Preprocessing...")
         X_train, X_test, y_train, y_test, feature_names = preprocess_dataset(
             raw_data, dataset_name
