@@ -53,7 +53,7 @@ In the definition Molnar adopts, interpretability is the degree to which a human
 
 The split criterion is one such setting. The scikit-learn library grows trees with Gini impurity unless told otherwise and offers Shannon entropy as the alternative \cite{sklearnDTC}, but its documentation gives no reason to prefer either for interpretability. In healthcare the question has practical weight, because a review of 76 studies found that applications of explainable AI (XAI) to tabular health records rarely appraised the validity or robustness of their explanations \cite{caterson2024}.
 
-This paper asks whether Gini or entropy changes the interpretability of decision trees trained on medical data. It reanalyses the group's recorded experiments on three UCI datasets, adds a node-by-node comparison of the depth-3 trees, and tests how far the measures support a verdict. Sections~II--V cover background, method, results with their critique, and conclusions.
+This paper asks whether Gini or entropy changes the interpretability of decision trees trained on medical data. It reanalyses the group's recorded experiments on three UCI datasets, adds a node-by-node comparison of the depth-3 trees, and tests how far the measures support a verdict.
 
 \section{Background and Related Work}
 \subsection{The Two Criteria}
@@ -61,13 +61,13 @@ For a node $m$ with class proportions $p_{mk}$, scikit-learn defines the two imp
 \begin{equation}
 H_{\mathrm{Gini}}=\sum_k p_{mk}(1-p_{mk}),\qquad H_{\mathrm{ent}}=-\sum_k p_{mk}\log p_{mk}.
 \end{equation}
-Gini impurity equals $1-\sum_k p_{mk}^2$, the probability that a random case is misclassified when labelled at random according to the node's class proportions \cite{karabiber}. It comes from CART \cite{breiman2017}, while information gain, the drop in entropy, comes from ID3 \cite{quinlan1986}; CART is still usually paired with Gini and ID3 with entropy \cite{kavlakoglu2021}. The scikit-learn library implements both inside one optimised CART that builds binary trees \cite{sklearnTree}, so in this study the criterion is the only difference between the paired trees.
+Gini impurity comes from CART \cite{breiman2017}, while information gain, the drop in entropy, comes from ID3 \cite{quinlan1986}; CART is usually paired with Gini and ID3 with entropy \cite{kavlakoglu2021}. The scikit-learn library implements both inside one optimised CART that builds binary trees \cite{sklearnTree}, so in this study the criterion is the only difference between the paired trees.
 
 \subsection{How Often the Criteria Disagree}
-Raileanu and Stoffel characterised formally when the two criteria select the same split. Across all possible databases with two binary attributes, a binary class and 50--200 rows, disagreement never exceeded 2\% of cases \cite{raileanu2004}. The group initially read this bound as a forecast of a null result. Its scope is narrower: it counts disagreements in the choice of a single split on small synthetic binary data, not differences in accuracy, and the authors add that specific databases may still differ significantly \cite{raileanu2004}. The features studied here are mostly continuous, so the bound does not transfer directly.
+Raileanu and Stoffel characterised formally when the two criteria select the same split. Across all possible databases with two binary attributes, a binary class and 50--200 rows, disagreement never exceeded 2\% of cases \cite{raileanu2004}. Its scope is narrower: it counts disagreements in the choice of a single split on small synthetic binary data, not differences in accuracy, and the authors add that specific databases may still differ significantly \cite{raileanu2004}. The features studied here are mostly continuous, so the bound does not transfer directly.
 
 \subsection{What Makes a Tree Comprehensible}
-In a study with 69 respondents, Piltaver \textit{et al.} found that more leaves clearly made trees harder to understand and that the depth of the leaf needed to answer a question had the largest effect, while tree depth on its own mattered little \cite{piltaver2016}. Terminal nodes multiply quickly with depth \cite{molnar2025}, which is why limiting \texttt{max\_depth} works as pre-pruning and why unpruned trees are hard to follow \cite{navlani2026}. Leaf count is therefore a better proxy than maximum depth.
+In a study with 69 respondents, Piltaver \textit{et al.} found that more leaves clearly made trees harder to understand and that the depth of the leaf needed to answer a question had the largest effect, while tree depth on its own mattered little \cite{piltaver2016}. Terminal nodes multiply quickly with depth \cite{molnar2025}, so limiting \texttt{max\_depth} works as pre-pruning. Leaf count is therefore a better proxy than maximum depth.
 
 \subsection{Instability}
 Decision trees are unstable: small variations in the training set produce different trees, with changes in both accuracy and topology \cite{last2002}. The course readings agree \cite{molnar2025}, \cite{kavlakoglu2021}. An explanation that changes when a few patients are swapped is hard to trust, so stability is treated here as part of interpretability.
@@ -100,11 +100,11 @@ Each dataset was split once, stratified 80/20, with \texttt{random\_state}~$=42$
 \textit{Structure:} depth, leaves, nodes and distinct features used by the unconstrained trees. \textit{Accuracy at fixed complexity:} test accuracy with \texttt{max\_depth} set to 3, 5, 7 and 10. \textit{Stability:} the data were re-split 30 times (\texttt{random\_state}~$=$~run, tree seed fixed), an unconstrained tree was trained on each training portion, and its impurity-based importances were ranked. Every pair of runs (435 pairs) was compared by Kendall's~$\tau$ over the full ranking and by the Jaccard overlap of the top five features, and the values were averaged. The procedure was repeated on five disjoint sets of 30 split seeds to show how much each average moves with the resamples drawn. \textit{Readable levels:} the depth-3 trees were compared at their seven split positions, counting positions with the same feature and threshold.
 
 \subsection{Existing Results Only}
-The group chose to analyse its recorded runs without re-running them. Patient counts, the binomial standard error $\sqrt{p(1-p)/n}$, gaps and split counts were derived from the notebook outputs and tree plots, which accompany this paper with the derivation script.
+The group analysed its recorded runs without re-running them. Patient counts, the binomial standard error $\sqrt{p(1-p)/n}$, gaps and split counts were derived from the notebook outputs and tree plots.
 
 \section{Results and Discussion}
 \subsection{Structure}
-Table~\ref{tab:struct} shows no consistent structural winner. Gini trees are one level shallower on HD and HF but deeper on BC. Entropy has fewer or equal leaves everywhere, but only BC shows a material gap, 17 against 24. Node counts add nothing: every tree is binary, so nodes $=2\times\text{leaves}-1$ in all six cases. Since more leaves clearly reduce comprehension \cite{piltaver2016}, trees with 17--51 leaves make poor reading whichever criterion grew them.
+Table~\ref{tab:struct} shows no consistent structural winner. Gini trees are one level shallower on HD and HF but deeper on BC. Entropy has fewer or equal leaves everywhere, but only BC shows a material gap, 17 against 24. Since more leaves clearly reduce comprehension \cite{piltaver2016}, trees with 17--51 leaves make poor reading whichever criterion grew them.
 
 \begin{table}[!t]
 \caption{Unconstrained trees on the single 80/20 split}
@@ -130,7 +130,7 @@ Fig.~\ref{fig:depth} expresses the accuracy gap in test patients. Entropy is ahe
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth]{fig-depth-gap.png}
+\includegraphics[width=0.9\columnwidth]{fig-depth-gap.png}
 \caption{Accuracy gap at fixed depth: entropy minus Gini, in correctly classified test patients (positive favours entropy).}
 \label{fig:depth}
 \end{figure}
@@ -146,7 +146,7 @@ Table~\ref{tab:splits} compares the depth-3 trees node by node. On HD and HF the
 \centering
 \footnotesize
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}l c c c >{\raggedright\arraybackslash}p{3.1cm}@{}}
+\begin{tabular}{@{}l c c c >{\raggedright\arraybackslash}p{3.65cm}@{}}
 \hline
  & Splits & Identical & Same feat. & First difference \\
 \hline
@@ -161,26 +161,26 @@ HF & 6/6 & 5 of 6 & 5 of 6 & Level 3: \texttt{serum\_sodium} vs. \texttt{platele
 BC behaves differently. Both roots split on \texttt{perimeter3}, but at different thresholds, so 297 training patients go left under Gini and 308 under entropy; every node below then sees different data, and no threshold matches. This explains why 10 of 19 shared positions agree exactly, well below the 98\% that Raileanu and Stoffel's bound might suggest \cite{raileanu2004}: their bound concerns one decision on fixed data, whereas in a tree one early disagreement changes the data for every descendant. Small differences still move accuracy: on HD, two differing bottom splits separate 53 from 49 correct.
 
 \subsection{Stability of Importance Rankings}
-Fig.~\ref{fig:stab} shows that the dataset, not the criterion, sets stability. For a fixed criterion, $\tau$ ranges from 0.31 (BC) to 0.65 (HF) across datasets, a spread of about 0.33, and Jaccard from 0.35 to 0.78. The largest gap between criteria is 0.045 in $\tau$ and 0.052 in Jaccard, and its sign changes: entropy is ahead on HD, Gini on HF, and BC is level (0.312 against 0.308). These gaps are no larger than the movement from redrawing the resamples: the all-pairs mean shifts by up to 0.077 in $\tau$ and 0.077 in Jaccard across five sets of 30 split seeds. We therefore draw no conclusion about which criterion is more stable. BC ranks least consistently, with 30 features of which 12--14 are used.
+Fig.~\ref{fig:stab} shows that the dataset, not the criterion, sets stability. For a fixed criterion, $\tau$ ranges from 0.31 (BC) to 0.65 (HF) across datasets. The largest gap between criteria is 0.045 in $\tau$ and 0.052 in Jaccard, and its sign changes: entropy is ahead on HD, Gini on HF, and BC is level. These gaps are no larger than the movement from redrawing the resamples, which shifts the all-pairs mean by up to 0.077 in both measures across five sets of 30 split seeds. We therefore draw no conclusion about which criterion is more stable. BC ranks least consistently, with 30 features of which 12--14 are used.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{fig-stability.pdf}
-\caption{Stability over 30 resamples: mean Kendall's $\tau$ and top-5 Jaccard overlap over all 435 pairs of runs. Whiskers give the range over five independent sets of 30 resamples.}
+\caption{Stability over 30 resamples: mean Kendall's $\tau$ and top-5 Jaccard overlap over all 435 run pairs. Whiskers: range over five sets of 30 resamples.}
 \label{fig:stab}
 \end{figure}
 
-The measure still has limits. The importances are impurity-based and computed on the training portion of unconstrained trees, and the scikit-learn documentation warns that such importances can rate features highly that do not predict unseen data when the model overfits, and that they favour high-cardinality features \cite{sklearnPI}; Molnar recommends estimating importance on held-out data for the same reason \cite{molnar2025}. HD's one-hot binary columns are exposed to that bias. Finally, the stability measured is that of the 33--101-node trees, not of the depth-3 trees that Table~\ref{tab:splits} shows a reader would use.
+The measure still has limits. The importances are impurity-based and computed on the training portion of unconstrained trees, and the scikit-learn documentation warns that such importances can rate features highly that do not predict unseen data when the model overfits, and that they favour high-cardinality features \cite{sklearnPI}; HD's one-hot binary columns are exposed to that bias. Finally, the stability measured is that of the 33--101-node trees, not of the depth-3 trees that Table~\ref{tab:splits} shows a reader would use.
 
 \subsection{Hypotheses}
-H1 (Gini gives simpler trees with less stable rankings) is not supported: Gini is shallower on two datasets, has more leaves on BC, and its stability is level with entropy on BC, higher on HF and lower on HD, within the variation between resample sets. H2 (entropy gives more stable rankings but deeper trees) is not supported either: entropy is deeper on two datasets, but its $\tau$ is higher on HD only and the gap is within that variation. H3 (dataset dependence) is supported: the dataset moves $\tau$ about seven times more than the criterion does and decides which criterion appears ahead on accuracy. H0 is not rejected: the only measure that leans the same way on all three datasets is leaf count, and its margin there is 0 and 1 leaves on two of them. No proxy was checked against human judgement, and comprehension depends on the reader's question \cite{piltaver2016}.
+H1 (Gini gives simpler trees with less stable rankings) is not supported: Gini is shallower on two datasets, has more leaves on BC, and its stability is level with entropy on BC, higher on HF and lower on HD, within the variation between resample sets. H2 (entropy gives more stable rankings but deeper trees) is not supported either: entropy is deeper on two datasets, but its $\tau$ is higher on HD only and the gap is within that variation. H3 (dataset dependence) is supported: the dataset moves $\tau$ about seven times more than the criterion does and decides which criterion appears ahead on accuracy. H0 is not rejected: the only measure that leans the same way on all three datasets is leaf count, and its margin there is 0 and 1 leaves on two of them.
 
 \section{Conclusion and Limitations}
 On these datasets the split criterion does not change interpretability in any consistent way. Structural size differs by one level and up to seven leaves without a pattern (RQ1). No criterion gives more accuracy per unit of depth once test-set resolution is considered, though on each dataset the better depth-3 tree matches or nearly matches the best setting tried (RQ2). Stability is driven by the dataset, and the criterion effect changes sign and is within resampling noise (RQ3). The readable top levels agree exactly on the two heart datasets and diverge from the root on breast cancer, where a small threshold shift cascades through the tree (RQ4).
 
-The analysis leaves several questions open. Accuracy rests on one split with no paired test, so small real differences cannot be excluded. The stability measure does not measure the stability of a readable explanation. Split agreement was read from plots at depth 3 only. Only \texttt{max\_depth} pruning was used; cost-complexity pruning, other criteria and ensembles were not studied. The datasets come from one domain, and no clinician judged any tree, so every conclusion concerns proxies for interpretability rather than interpretability itself.
+The analysis leaves several questions open. Accuracy rests on one split with no paired test, so small real differences cannot be excluded. The stability measure does not measure the stability of a readable explanation, and split agreement was read from plots at depth 3 only. Only \texttt{max\_depth} pruning was used; cost-complexity pruning, other criteria and ensembles were not studied. The datasets come from one domain, and no clinician judged any tree, so every conclusion concerns proxies for interpretability rather than interpretability itself.
 
-Four changes would address these limits. Practitioners should choose the depth budget first. Accuracy should be reported in patients with paired tests over many resamples. Stability should be measured pairwise on the depth-limited trees, using permutation importance on held-out data. A small clinician study of paired depth-3 trees would show whether the divergences in Table~\ref{tab:splits} change what readers conclude.
+Practitioners should choose the depth budget first, report accuracy in patients with paired tests over many resamples, and measure stability on the depth-limited trees using permutation importance on held-out data. A small clinician study of paired depth-3 trees would show whether the divergences in Table~\ref{tab:splits} change what readers conclude.
 
 \clearpage
 \label{paper:references}

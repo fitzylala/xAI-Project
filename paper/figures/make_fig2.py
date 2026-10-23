@@ -70,7 +70,7 @@ print(df.round(3).to_string(index=False))
 
 plt.rcParams.update({"font.size": 8, "font.family": "serif", "axes.spines.top": False,
                      "axes.spines.right": False})
-fig, axes = plt.subplots(1, 2, figsize=(3.5, 2.3), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(3.5, 1.95), sharey=True)
 width = 0.38
 for ax, key, title in zip(axes, ("tau", "jaccard"), ("Kendall's $\\tau$", "Top-5 Jaccard")):
     for k, criterion in enumerate(("gini", "entropy")):
